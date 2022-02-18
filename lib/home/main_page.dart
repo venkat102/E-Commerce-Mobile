@@ -1,5 +1,6 @@
 import 'package:ecom/home/home_slider.dart';
 import 'package:ecom/utils/app_color.dart';
+import 'package:ecom/utils/dimensions.dart';
 import 'package:ecom/widgets/small_text.dart';
 import 'package:ecom/widgets/title_text.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,10 @@ class _MainPageState extends State<MainPage> {
       children: [
         Container(
           child: Container(
-              margin: const EdgeInsets.only(top: 45, bottom: 10),
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              margin: EdgeInsets.only(
+                  top: Dimensions.height45, bottom: Dimensions.height10),
+              padding: EdgeInsets.only(
+                  left: Dimensions.width20, right: Dimensions.width20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -29,7 +32,7 @@ class _MainPageState extends State<MainPage> {
                       TitleText(
                           text: "UserName",
                           color: AppColors.paleGreen,
-                          size: 20),
+                          size: Dimensions.height20),
                       Row(
                         children: [
                           SmallText(
@@ -43,14 +46,14 @@ class _MainPageState extends State<MainPage> {
                   ),
                   Center(
                       child: Container(
-                    width: 40,
-                    height: 40,
+                    width: Dimensions.width40,
+                    height: Dimensions.height40,
                     child: const Icon(
                       Icons.search,
                       color: Color(0xFF45D2A7),
                     ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
                       // color: AppColors.paleGreen,
                     ),
                   ))

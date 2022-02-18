@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ecom/utils/app_color.dart';
 import 'package:ecom/utils/dimensions.dart';
@@ -19,6 +18,8 @@ class _HomeSliderState extends State<HomeSlider> {
   int _currentpage = 0;
   double _currentPageValue = 0.0;
   double _scaleFactor = 0.8;
+  // int indicatorLimit = 5;
+  // double indicatorPosition = 0;
 
   _HomeSliderState({required this.totalPage});
 
@@ -52,6 +53,7 @@ class _HomeSliderState extends State<HomeSlider> {
   _onPageChange(int index) {
     setState(() {
       _currentpage = index;
+      // indicatorPosition = (index % indicatorLimit).toDouble();
     });
   }
 
@@ -61,7 +63,7 @@ class _HomeSliderState extends State<HomeSlider> {
       children: [
         Container(
           // color: AppColors.orange,
-          height: MediaQuery.of(context).size.height / 3,
+          height: Dimensions.sliderView,
           child: PageView.builder(
               scrollDirection: Axis.horizontal,
               controller: _pageViewController,
@@ -71,16 +73,16 @@ class _HomeSliderState extends State<HomeSlider> {
                 return _buildPageItem(index);
               }),
         ),
-        DotsIndicator(
-          dotsCount: totalPage,
-          position: _currentpage.toDouble(),
-          decorator: DotsDecorator(
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-          ),
-        )
+        // DotsIndicator(
+        //   dotsCount: indicatorLimit,
+        //   position: indicatorPosition,
+        //   decorator: DotsDecorator(
+        //     size: Size.square(Dimensions.width9),
+        //     activeSize: Size(Dimensions.width18, Dimensions.height9),
+        //     activeShape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(Dimensions.radius5)),
+        //   ),
+        // )
       ],
     );
   }
@@ -120,7 +122,8 @@ class _HomeSliderState extends State<HomeSlider> {
         children: [
           Container(
             height: height,
-            margin: const EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(
+                left: Dimensions.width10, right: Dimensions.width10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius30),
                 color: AppColors.yellow,
@@ -141,19 +144,23 @@ class _HomeSliderState extends State<HomeSlider> {
                       BoxShadow(
                         color: AppColors.lightGrey,
                         spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: Offset(0, 5), // changes position of shadow
+                        blurRadius: Dimensions.radius5,
+                        offset: Offset(0,
+                            Dimensions.height5), // changes position of shadow
                       ),
                       BoxShadow(
                         color: AppColors.white,
-                        offset: Offset(-5, 0),
+                        offset: Offset(-Dimensions.width5, 0),
                       ),
                       BoxShadow(
                         color: AppColors.white,
-                        offset: Offset(5, 0),
+                        offset: Offset(Dimensions.width5, 0),
                       )
                     ]),
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+                padding: EdgeInsets.only(
+                    left: Dimensions.width15,
+                    right: Dimensions.width15,
+                    top: Dimensions.height15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -165,10 +172,11 @@ class _HomeSliderState extends State<HomeSlider> {
                               children: List.generate(
                                   5,
                                   (index) => Icon(Icons.star,
-                                      color: AppColors.green, size: 15))),
-                          const SizedBox(width: 5),
+                                      color: AppColors.green,
+                                      size: Dimensions.height15))),
+                          SizedBox(width: Dimensions.width5),
                           SmallText(text: "5.0  "),
-                          const SizedBox(width: 10),
+                          SizedBox(width: Dimensions.width10),
                           SmallText(text: "5445 Comments")
                         ],
                       ),
