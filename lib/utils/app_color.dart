@@ -11,4 +11,6 @@ class AppColors {
   static final Color darkGrey = HexColor("#757575");
   static final Color lightGrey = HexColor("#BDBDBD");
   static final Color black = HexColor("#171717");
+  static final Color buttonBgColor = Colors.grey.shade200;
+  static final Color signColor = Colors.grey.shade400;
 }

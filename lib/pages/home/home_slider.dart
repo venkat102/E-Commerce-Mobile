@@ -1,10 +1,12 @@
 import 'dart:async';
-import 'package:dots_indicator/dots_indicator.dart';
+// import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ecom/utils/app_color.dart';
 import 'package:ecom/utils/dimensions.dart';
 import 'package:ecom/widgets/small_text.dart';
 import 'package:ecom/widgets/title_text.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/card_content.dart';
 
 class HomeSlider extends StatefulWidget {
   int totalPage;
@@ -18,6 +20,7 @@ class _HomeSliderState extends State<HomeSlider> {
   int _currentpage = 0;
   double _currentPageValue = 0.0;
   double _scaleFactor = 0.8;
+  bool increment = true;
   // int indicatorLimit = 5;
   // double indicatorPosition = 0;
 
@@ -30,7 +33,13 @@ class _HomeSliderState extends State<HomeSlider> {
   void initState() {
     super.initState();
     Timer.periodic(const Duration(seconds: 5), (timer) {
-      _currentpage = (_currentpage + 1) % totalPage;
+      if (_currentpage + 1 >= totalPage) {
+        increment = false;
+      } else if (_currentpage - 1 < 0) {
+        increment = true;
+      }
+      _currentpage =
+          (increment ? _currentpage + 1 : _currentpage - 1) % totalPage;
 
       _pageViewController.animateToPage(_currentpage,
           duration: const Duration(milliseconds: 1200),
@@ -82,7 +91,87 @@ class _HomeSliderState extends State<HomeSlider> {
         //     activeShape: RoundedRectangleBorder(
         //         borderRadius: BorderRadius.circular(Dimensions.radius5)),
         //   ),
-        // )
+        // ),
+        // SizedBox(height: Dimensions.height30,),
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.width20),
+          child: Row(
+            children: [
+              TitleText(text: "Sub Title"),
+            ],
+          ),
+        ),
+        //List View
+        Container(
+          height: 800,
+          child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: totalPage,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.only(
+                      left: Dimensions.width20,
+                      right: Dimensions.width20,
+                      bottom: Dimensions.height10),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: Dimensions.listViewImgSize,
+                        width: Dimensions.listViewImgSize,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius15),
+                            color: AppColors.orange,
+                            image: const DecorationImage(
+                                image:
+                                    NetworkImage('https://picsum.photos/200'),
+                                fit: BoxFit.cover)),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: Dimensions.listViewTextCon,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey,
+                                  spreadRadius: 1,
+                                  blurRadius: Dimensions.radius5,
+                                  offset: Offset(Dimensions.height5,
+                                      0), // changes position of shadow
+                                ),
+                                BoxShadow(
+                                  color: AppColors.white,
+                                  offset: Offset(0, -Dimensions.width5),
+                                ),
+                                BoxShadow(
+                                  color: AppColors.white,
+                                  offset: Offset(0, Dimensions.width5),
+                                )
+                              ],
+                              borderRadius: BorderRadius.only(
+                                  topRight:
+                                      Radius.circular(Dimensions.radius20),
+                                  bottomRight:
+                                      Radius.circular(Dimensions.radius20)),
+                              color: AppColors.white),
+                          child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: Dimensions.height10,
+                                  left: Dimensions.width10,
+                                  right: Dimensions.width10),
+                              child: cardContent(
+                                  title: "Title",
+                                  rating: 5,
+                                  comment: 5445,
+                                  description: "Description")),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }),
+        )
       ],
     );
   }
@@ -100,21 +189,21 @@ class _HomeSliderState extends State<HomeSlider> {
       double currScale =
           _scaleFactor + (_currentPageValue - index + 1) * (1 - _scaleFactor);
       double currTrans = height * (1 - currScale) / 2;
-
+      matrix = Matrix4.diagonal3Values(1, currScale, 1.0);
       matrix = Matrix4.diagonal3Values(1, currScale, 1.0)
         ..setTranslationRaw(0, currTrans, 0);
     } else if (index == _currentPageValue.floor() - 1) {
       double currScale = 1 - (_currentPageValue - index) * (1 - _scaleFactor);
 
       double currTrans = height * (1 - currScale) / 2;
-
+      matrix = Matrix4.diagonal3Values(1, currScale, 1.0);
       matrix = Matrix4.diagonal3Values(1, currScale, 1.0)
         ..setTranslationRaw(0, currTrans, 0);
     } else {
-      double currTrans = height * (1 - 0.8) / 2;
+      double currScale = 0.8;
 
-      matrix = Matrix4.diagonal3Values(1, height * (1 - _scaleFactor) / 2, 1.0)
-        ..setTranslationRaw(0, currTrans, 1);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1.0)
+        ..setTranslationRaw(0, height * (1 - _scaleFactor) / 2, 0);
     }
     return Transform(
       transform: matrix,
@@ -161,28 +250,11 @@ class _HomeSliderState extends State<HomeSlider> {
                     left: Dimensions.width15,
                     right: Dimensions.width15,
                     top: Dimensions.height15),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TitleText(text: "Title"),
-                      SizedBox(height: Dimensions.height10),
-                      Row(
-                        children: [
-                          Wrap(
-                              children: List.generate(
-                                  5,
-                                  (index) => Icon(Icons.star,
-                                      color: AppColors.green,
-                                      size: Dimensions.height15))),
-                          SizedBox(width: Dimensions.width5),
-                          SmallText(text: "5.0  "),
-                          SizedBox(width: Dimensions.width10),
-                          SmallText(text: "5445 Comments")
-                        ],
-                      ),
-                      SizedBox(height: Dimensions.height10),
-                      SmallText(text: "Description")
-                    ]),
+                child: cardContent(
+                    title: "Title",
+                    rating: 5,
+                    comment: 5445,
+                    description: "Description"),
               ))
         ],
       ),

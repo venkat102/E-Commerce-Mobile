@@ -24,13 +24,26 @@ class Dimensions {
   static double width18 = screenWidth / 21.81;
   static double width20 = screenWidth / 19.63;
   static double width25 = screenWidth / 15.70;
+  static double width30 = width15 * 2;
   static double width40 = screenWidth / 9.81;
 
   static double titleFont = screenHeight / 45;
+  static double bigTitleFont = screenHeight / 33;
   static double smallFont = screenHeight / 70;
 
   static double radius20 = screenHeight / 45;
   static double radius5 = radius20 / 4;
   static double radius30 = screenHeight / 30;
   static double radius15 = radius30 / 2;
+  static double radius40 = radius20 * 2;
+
+  static double iconSize20 = screenHeight / 43.63;
+  static double iconSize24 = screenHeight / 35.17;
+
+  static double listViewImgSize = screenWidth / 3.25;
+  static double listViewTextCon = screenWidth / 3.9;
+
+  static double itemDetailImgSize = screenHeight / 2.41;
+
+  static double bottomHeight = screenHeight / 8.5;
 }

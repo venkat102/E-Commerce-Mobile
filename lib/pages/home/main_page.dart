@@ -1,4 +1,4 @@
-import 'package:ecom/home/home_slider.dart';
+import 'package:ecom/pages/home/home_slider.dart';
 import 'package:ecom/utils/app_color.dart';
 import 'package:ecom/utils/dimensions.dart';
 import 'package:ecom/widgets/small_text.dart';
@@ -48,9 +48,10 @@ class _MainPageState extends State<MainPage> {
                       child: Container(
                     width: Dimensions.width40,
                     height: Dimensions.height40,
-                    child: const Icon(
+                    child: Icon(
                       Icons.search,
-                      color: Color(0xFF45D2A7),
+                      color: const Color(0xFF45D2A7),
+                      size: Dimensions.iconSize24,
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -60,7 +61,11 @@ class _MainPageState extends State<MainPage> {
                 ],
               )),
         ),
-        HomeSlider(totalPage: 10)
+        Expanded(
+          child: SingleChildScrollView(
+            child: HomeSlider(totalPage: 10),
+          ),
+        )
       ],
     ));
   }
