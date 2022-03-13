@@ -1,7 +1,7 @@
 class ItemList {
   int? _length;
-  late List<ItemModel>? _item;
-  List<ItemModel>? get items => _item;
+  late List<ItemModel> _item;
+  List<ItemModel> get items => _item;
   int? get length => _length;
 
   ItemList({required length, required item}) {
@@ -14,7 +14,7 @@ class ItemList {
     if (json['item'] != null) {
       _item = <ItemModel>[];
       json['item'].forEach((v) {
-        _item!.add(ItemModel.fromJson(v));
+        _item.add(ItemModel.fromJson(v));
       });
     }
   }

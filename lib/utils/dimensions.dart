@@ -6,7 +6,7 @@ class Dimensions {
 
   static double sliderView = screenHeight / 2.64;
   static double sliderViewContainer = screenHeight / 3.84;
-  static double sliderViewTextContainer = screenHeight / 7.03;
+  static double sliderViewTextContainer = screenHeight / 8.5;
 
   static double height5 = screenHeight / 174.54;
   static double height9 = screenHeight / 96.96;

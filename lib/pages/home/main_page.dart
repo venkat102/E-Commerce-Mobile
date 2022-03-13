@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
         ),
         Expanded(
           child: SingleChildScrollView(
-            child: HomeSlider(totalPage: 10),
+            child: HomeSlider(),
           ),
         )
       ],

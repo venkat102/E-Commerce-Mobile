@@ -36,7 +36,7 @@ class cardContent extends StatelessWidget {
                       color: AppColors.green, size: Dimensions.height15))),
           SizedBox(width: Dimensions.width5),
           SmallText(text: "$rating.0  "),
-          SizedBox(width: Dimensions.width10),
+          SizedBox(width: Dimensions.width5),
           SmallText(text: "$comment Comments")
         ],
       ),
